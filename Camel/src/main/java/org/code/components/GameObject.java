@@ -4,7 +4,7 @@ public abstract class GameObject {
 
     private int field;
 
-    protected static final int DEF = 0;
+    public static final int DEF = 0;
 
     public GameObject() {
         field = DEF;
