@@ -7,15 +7,10 @@ public class Game {
 
     private static final int BOARD_SIZE = 25+1;
     private static final int CAMELS_NUMBER = 5;
-
     private boolean isGameFinished;
-
-
-
     private GameObject[] board;
-
+    //not really useful, it only slightly improves efficiency in searching if field is free
     private int players;
-
     private final Camel white;
     private final Camel yellow;
     private final Camel orange;
@@ -419,13 +414,8 @@ public class Game {
 
                     //roll back all the changes
                     //at first, change all positions to default ones
-                    for (Camel c: camels){
-                        int position = c.getField();
-                        board[position] = null;
-                        c.setDown(null);
-                        c.setUp(null);
-                        c.setField(Camel.DEF);
-                    }
+                    releaseAllCamels();
+
                     for (int i=0; i<CAMELS_NUMBER; i++){
                         setCamel(recoveryColours.get(i), recoveryPositions.get(i));
                     }
@@ -468,7 +458,7 @@ public class Game {
 
 
 
-    private int getWinner(){
+    public int getWinner(){
         int maxField = 0;
         Camel winner = null;
         for (Camel camel: camels){
