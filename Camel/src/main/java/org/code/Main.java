@@ -15,8 +15,51 @@ public class Main {
         //test3();
         //test4();
         //test5();
-        pysio_test();
+        //pysio_test();
+        //test6();
+        game1();
+    }
 
+    private static void game1(){
+        Game game = new Game(2);
+
+        game.setCamel(Colours.white, 12);
+        game.setCamel(Colours.yellow, 13);
+        game.setCamel(Colours.orange, 11);
+        game.setCamel(Colours.green, 14);
+        game.setCamel(Colours.blue, 13);
+
+        game.makePredictions();
+
+        game.setSpecialField(15, -1);
+        game.setSpecialField(15, -1);
+
+        game.makePredictions();
+
+        //moves
+
+        game.releaseAllSpecialFields();
+        game.releaseAllCamels();
+    }
+
+    private static void test6(){
+        Game game = new Game(2);
+
+        game.setCamel(Colours.white, 15);
+        game.setCamel(Colours.yellow, 13);
+        game.setCamel(Colours.orange, 11);
+        game.setCamel(Colours.green, 14);
+        game.setCamel(Colours.blue, 13);
+
+        game.setSpecialField(15, -1);
+
+        /*game.moveCamel(Colours.yellow, 1);
+        game.moveCamel(Colours.white, 1);
+        game.moveCamel(Colours.orange, 2);
+        game.moveCamel(Colours.green, 2);
+        game.moveCamel(Colours.blue, 3);*/
+
+        game.makePredictions();
     }
 
     private static void pysio_test(){

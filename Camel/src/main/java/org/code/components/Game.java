@@ -5,12 +5,12 @@ import java.util.HashMap;
 
 public class Game {
 
-    private static final int BOARD_SIZE = 25+1;
+    private static final int BOARD_SIZE = 16;
     private static final int CAMELS_NUMBER = 5;
     private boolean isGameFinished;
-    private GameObject[] board;
+    private final GameObject[] board;
     //not really useful, it only slightly improves efficiency in searching if field is free
-    private int players;
+    private final int players;
     private final Camel white;
     private final Camel yellow;
     private final Camel orange;
@@ -32,7 +32,7 @@ public class Game {
         createColoursToNumbers();
         this.players = players;
         firstUnusedSpecialField = 0;
-        board = new GameObject[BOARD_SIZE];
+        board = new GameObject[BOARD_SIZE+1];
         camels = new Camel[CAMELS_NUMBER];
         white = new Camel(Colours.white);
         camels[coloursToNumbers.get(Colours.white)] = white;
@@ -322,13 +322,14 @@ public class Game {
             camel.setUp(null);
             camel.setDown(null);
             camel.setField(Camel.DEF);
+            camel.setHasMoved(false);
         }
     }
 
     private class SavedCamels{
-        private ArrayList<Colours> recoveryColours;
-        private ArrayList<Integer> recoveryPositions;
-        private ArrayList<Boolean> recoveryActivity;
+        private final ArrayList<Colours> recoveryColours;
+        private final ArrayList<Integer> recoveryPositions;
+        private final ArrayList<Boolean> recoveryActivity;
 
         public SavedCamels(ArrayList<Colours> recoveryColours, ArrayList<Integer> recoveryPositions, ArrayList<Boolean> recoveryActivity) {
             this.recoveryColours = recoveryColours;
@@ -378,6 +379,11 @@ public class Game {
 
     public void makePredictions(){
         //save previous positions
+        if (isGameFinished()){
+            System.out.println("Game is finished");
+            System.out.println("No predictions needed");
+            return;
+        }
         SavedCamels savedCamels = savePositions();
         ArrayList<Colours> recoveryColours = savedCamels.getRecoveryColours();
         ArrayList<Integer> recoveryPositions = savedCamels.getRecoveryPositions();
@@ -404,6 +410,8 @@ public class Game {
             private void predict(ArrayList<Colours> choices, ArrayList<Colours> permutations, ArrayList<Integer> moves){
                 if (choices.size() == 0){
                     for (int i=0; i<permutations.size(); i++){
+                        if (isGameFinished())
+                            break;
                         moveCamel(permutations.get(i), moves.get(i));
                     }
                     iterations++;
@@ -443,13 +451,13 @@ public class Game {
             }
         }
         Predictor predictor = new Predictor();
-        predictor.predict(choices, new ArrayList<Colours>(), new ArrayList<Integer>());
-        Integer iterations = predictor.getIterations();
+        predictor.predict(choices, new ArrayList<>(), new ArrayList<>());
+        int iterations = predictor.getIterations();
 
         //counting percentage results
         ArrayList<Double> finalResults = new ArrayList<>(CAMELS_NUMBER);
         for (Integer el: winningResults){
-            finalResults.add(el.doubleValue() / iterations.doubleValue());
+            finalResults.add(el.doubleValue() / iterations);
         }
         System.out.println(finalResults);
         //TODO
