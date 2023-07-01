@@ -1,5 +1,6 @@
 package org.code;
 
+import org.code.app.App;
 import org.code.components.Camel;
 import org.code.components.Colours;
 import org.code.components.Game;
@@ -17,26 +18,39 @@ public class Main {
         //test5();
         //pysio_test();
         //test6();
-        game1();
+        //game1();
+        GUItest();
+    }
+
+    private static void GUItest(){
+        Game game = new Game(2);
+
+        game.getUp(Colours.blue);
+        Colours colours = game.getUp(Colours.blue);
+        System.out.println(colours);
     }
 
     private static void game1(){
         Game game = new Game(2);
 
-        game.setCamel(Colours.white, 12);
-        game.setCamel(Colours.yellow, 13);
+        game.setCamel(Colours.yellow, 9);
+        game.setCamel(Colours.blue, 9);
+        game.setCamel(Colours.white, 11);
         game.setCamel(Colours.orange, 11);
         game.setCamel(Colours.green, 14);
-        game.setCamel(Colours.blue, 13);
-
-        game.makePredictions();
-
-        game.setSpecialField(15, -1);
-        game.setSpecialField(15, -1);
-
-        game.makePredictions();
 
         //moves
+        game.setSpecialField(13, 1);
+        game.setSpecialField(16, 1);
+
+        game.moveCamel(Colours.orange, 3);
+        game.moveCamel(Colours.blue, 1);
+        game.moveCamel(Colours.white, 2);
+        game.moveCamel(Colours.yellow, 2);
+
+        //while winning, chances are wrong, sth wrong with taking the winner
+
+        game.makePredictions();
 
         game.releaseAllSpecialFields();
         game.releaseAllCamels();

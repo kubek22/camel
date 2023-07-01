@@ -377,12 +377,14 @@ public class Game {
         return new SavedCamels(recoveryColours, recoveryPositions, recoveryActivity);
     }
 
-    public void makePredictions(){
+    public ArrayList<Double> makePredictions(){
+        ArrayList<Double> finalResults = new ArrayList<>(CAMELS_NUMBER);
+        int[] winningResults = new int[CAMELS_NUMBER];
         //save previous positions
         if (isGameFinished()){
             System.out.println("Game is finished");
             System.out.println("No predictions needed");
-            return;
+            return finalResults;
         }
         SavedCamels savedCamels = savePositions();
         ArrayList<Colours> recoveryColours = savedCamels.getRecoveryColours();
@@ -397,8 +399,6 @@ public class Game {
                 choices.add(camel.getColour());
             }
         }
-
-        int[] winningResults = new int[CAMELS_NUMBER];
 
         class Predictor{
             private int iterations = 0;
@@ -455,13 +455,11 @@ public class Game {
         int iterations = predictor.getIterations();
 
         //counting percentage results
-        ArrayList<Double> finalResults = new ArrayList<>(CAMELS_NUMBER);
         for (Integer el: winningResults){
             finalResults.add(el.doubleValue() / iterations);
         }
         System.out.println(finalResults);
-        //TODO
-        //return finalResults;
+        return finalResults;
     }
 
 
@@ -479,6 +477,28 @@ public class Game {
             winner = winner.getUp();
         }
         return coloursToNumbers.get(winner.getColour());
+    }
+
+    public int getPosition(Colours colour){
+        return camels[coloursToNumbers.get(colour)].getField();
+    }
+
+    public Colours getUp(Colours colour){
+        Camel camel = camels[coloursToNumbers.get(colour)].getUp();
+        if (camel == null)
+            return null;
+        return camel.getColour();
+    }
+
+    public Colours getDown(Colours colour){
+        Camel camel = camels[coloursToNumbers.get(colour)].getDown();
+        if (camel == null)
+            return null;
+        return camel.getColour();
+    }
+
+    public boolean hasMoved(Colours colour){
+        return camels[coloursToNumbers.get(colour)].hasMoved();
     }
 
 }
