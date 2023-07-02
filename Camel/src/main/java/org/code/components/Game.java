@@ -259,35 +259,35 @@ public class Game {
         return false;
     }
 
-    public void setSpecialField(int position, int move){
+    public boolean setSpecialField(int position, int move){
         //possible moves are 1and -1
         if (position < 1 | position > BOARD_SIZE){
             System.out.println("Position out of index");
-            return;
+            return false;
         }
         if (firstUnusedSpecialField >= specialFields.length){
             System.out.println("All special fields have been already used");
-            return;
+            return false;
         }
         if (!isFieldFree(position)){
             System.out.println("This field is taken");
-            return;
+            return false;
         }
         if (move != 1 & move != -1){
             System.out.println("Incorrect special field move modifier");
-            return;
+            return false;
         }
 
         if (position + 1 <= BOARD_SIZE){
             if (!isFieldFree(position + 1) & !isAnyCamelOnTheField(position + 1)){
                 System.out.println("There is already a special field set on the next field");
-                return;
+                return false;
             }
         }
         if (position - 1 > 0){
             if (!isFieldFree(position - 1) & !isAnyCamelOnTheField(position - 1)){
                 System.out.println("There is already a special field set on the previous field");
-                return;
+                return false;
             }
         }
 
@@ -295,7 +295,7 @@ public class Game {
 
         if (specialField.isSet()){
             System.out.println("This special field has been already set");
-            return;
+            return false;
         }
 
         firstUnusedSpecialField++;
@@ -303,6 +303,7 @@ public class Game {
         specialField.setField(position);
         specialField.setMove(move);
         specialField.setSet(true);
+        return true;
     }
 
     public void releaseAllSpecialFields(){
@@ -499,6 +500,10 @@ public class Game {
 
     public boolean hasMoved(Colours colour){
         return camels[coloursToNumbers.get(colour)].hasMoved();
+    }
+
+    public int colourToNumber(Colours colour){
+        return coloursToNumbers.get(colour);
     }
 
 }
