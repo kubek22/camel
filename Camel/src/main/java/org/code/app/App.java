@@ -204,20 +204,27 @@ public class App {
     }
 
     private void moveCamel(JTextField inputMove, Colours colour){
-        releaseAllSpecialFields();
         String input = inputMove.getText();
         int move = Integer.valueOf(input);
         game.moveCamel(colour, move);
+        if (game.isGameFinished()){
+            finishGame();
+        }
         updateAll();
+        releaseAllSpecialFields();
     }
 
     private void setCamel(JTextField inputSet, Colours colour){
+        String input = inputSet.getText();
+        int position = Integer.valueOf(input);
+        if (position > Game.getBoardSize()){
+            updateTextArea(outputTextArea, "Position out of board");
+            return;
+        }
         if (setCamels + 1 >= CAMELS)
             allCamelsSet = true;
         else
             setCamels++;
-        String input = inputSet.getText();
-        int position = Integer.valueOf(input);
         game.setCamel(colour, position);
         updateAll();
     }
@@ -226,8 +233,13 @@ public class App {
         movedCamels = (movedCamels + 1) % CAMELS;
         if (movedCamels == 0){
             game.releaseAllSpecialFields();
+            outputTextArea.setText("");
         }
-        outputTextArea.setText("");
+    }
+
+    private void finishGame(){
+        updateTextArea(outputTextArea, "The game is finished");
+        game.releaseAllSpecialFields();
     }
 
     private void updateAll(){
@@ -243,7 +255,7 @@ public class App {
         updateBlue(chances);
     }
 
-    private void udateTextArea(JTextArea jTextArea, String text){
+    private void updateTextArea(JTextArea jTextArea, String text){
         jTextArea.setText(text);
     }
 
@@ -251,92 +263,92 @@ public class App {
         Colours colour = Colours.blue;
 
         Integer position = game.getPosition(colour);
-        udateTextArea(bluePositionOutput, objectToText(position));
+        updateTextArea(bluePositionOutput, objectToText(position));
 
         Colours up = game.getUp(colour);
-        udateTextArea(blueUpOutput, objectToText(up));
+        updateTextArea(blueUpOutput, objectToText(up));
 
         Colours down = game.getDown(colour);
-        udateTextArea(blueDownOutput, objectToText(down));
+        updateTextArea(blueDownOutput, objectToText(down));
 
         Boolean hasMoved = game.hasMoved(colour);
-        udateTextArea(blueHasMovedOutput, objectToText(hasMoved));
+        updateTextArea(blueHasMovedOutput, objectToText(hasMoved));
 
         Double chance = chances.get(game.colourToNumber(colour));
-        udateTextArea(blueChancesOutput, objectToText(chance));
+        updateTextArea(blueChancesOutput, objectToText(chance));
     }
     private void updateGreen(ArrayList<Double> chances){
         Colours colour = Colours.green;
 
         Integer position = game.getPosition(colour);
-        udateTextArea(greenPositionOutput, objectToText(position));
+        updateTextArea(greenPositionOutput, objectToText(position));
 
         Colours up = game.getUp(colour);
-        udateTextArea(greenUpOutput, objectToText(up));
+        updateTextArea(greenUpOutput, objectToText(up));
 
         Colours down = game.getDown(colour);
-        udateTextArea(greenDownOutput, objectToText(down));
+        updateTextArea(greenDownOutput, objectToText(down));
 
         Boolean hasMoved = game.hasMoved(colour);
-        udateTextArea(greenHasMovedOutput, objectToText(hasMoved));
+        updateTextArea(greenHasMovedOutput, objectToText(hasMoved));
 
         Double chance = chances.get(game.colourToNumber(colour));
-        udateTextArea(greenChancesOutput, objectToText(chance));
+        updateTextArea(greenChancesOutput, objectToText(chance));
     }
     private void updateOrange(ArrayList<Double> chances){
         Colours colour = Colours.orange;
 
         Integer position = game.getPosition(colour);
-        udateTextArea(orangePositionOutput, objectToText(position));
+        updateTextArea(orangePositionOutput, objectToText(position));
 
         Colours up = game.getUp(colour);
-        udateTextArea(orangeUpOutput, objectToText(up));
+        updateTextArea(orangeUpOutput, objectToText(up));
 
         Colours down = game.getDown(colour);
-        udateTextArea(orangeDownOutput, objectToText(down));
+        updateTextArea(orangeDownOutput, objectToText(down));
 
         Boolean hasMoved = game.hasMoved(colour);
-        udateTextArea(orangeHasMovedOutput, objectToText(hasMoved));
+        updateTextArea(orangeHasMovedOutput, objectToText(hasMoved));
 
         Double chance = chances.get(game.colourToNumber(colour));
-        udateTextArea(orangeChancesOutput, objectToText(chance));
+        updateTextArea(orangeChancesOutput, objectToText(chance));
     }
     private void updateYellow(ArrayList<Double> chances){
         Colours colour = Colours.yellow;
 
         Integer position = game.getPosition(colour);
-        udateTextArea(yellowPositionOutput, objectToText(position));
+        updateTextArea(yellowPositionOutput, objectToText(position));
 
         Colours up = game.getUp(colour);
-        udateTextArea(yellowUpOutput, objectToText(up));
+        updateTextArea(yellowUpOutput, objectToText(up));
 
         Colours down = game.getDown(colour);
-        udateTextArea(yellowDownOutput, objectToText(down));
+        updateTextArea(yellowDownOutput, objectToText(down));
 
         Boolean hasMoved = game.hasMoved(colour);
-        udateTextArea(yellowHasMovedOutput, objectToText(hasMoved));
+        updateTextArea(yellowHasMovedOutput, objectToText(hasMoved));
 
         Double chance = chances.get(game.colourToNumber(colour));
-        udateTextArea(yellowChancesOutput, objectToText(chance));
+        updateTextArea(yellowChancesOutput, objectToText(chance));
     }
 
     private void updateWhite(ArrayList<Double> chances){
         Colours colour = Colours.white;
 
         Integer position = game.getPosition(colour);
-        udateTextArea(whitePositionOutput, objectToText(position));
+        updateTextArea(whitePositionOutput, objectToText(position));
 
         Colours up = game.getUp(colour);
-        udateTextArea(whiteUpOutput, objectToText(up));
+        updateTextArea(whiteUpOutput, objectToText(up));
 
         Colours down = game.getDown(colour);
-        udateTextArea(whiteDownOutput, objectToText(down));
+        updateTextArea(whiteDownOutput, objectToText(down));
 
         Boolean hasMoved = game.hasMoved(colour);
-        udateTextArea(whiteHasMovedOutput, objectToText(hasMoved));
+        updateTextArea(whiteHasMovedOutput, objectToText(hasMoved));
 
         Double chance = chances.get(game.colourToNumber(colour));
-        udateTextArea(whiteChancesOutput, objectToText(chance));
+        updateTextArea(whiteChancesOutput, objectToText(chance));
     }
 
     private String objectToText(Object o){

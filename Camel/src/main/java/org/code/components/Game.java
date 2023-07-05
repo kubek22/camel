@@ -104,7 +104,7 @@ public class Game {
         }
         if (previousPosition == position){
             //not necessary
-            //camel.setHasMoved(true);
+            camel.setHasMoved(true);
             System.out.println("Camel stayed on the same field");
             return;
         }
@@ -385,6 +385,11 @@ public class Game {
         if (isGameFinished()){
             System.out.println("Game is finished");
             System.out.println("No predictions needed");
+            //filling in the results
+            for (int i=0; i<CAMELS_NUMBER; i++)
+                finalResults.add(0.0);
+            int winner = getWinner();
+            finalResults.set(winner, 1.0);
             return finalResults;
         }
         SavedCamels savedCamels = savePositions();
@@ -424,6 +429,8 @@ public class Game {
                     //roll back all the changes
                     //at first, change all positions to default ones
                     releaseAllCamels();
+                    //to set camels, game cannot be finished
+                    isGameFinished = false;
 
                     for (int i=0; i<CAMELS_NUMBER; i++){
                         setCamel(recoveryColours.get(i), recoveryPositions.get(i));
@@ -432,7 +439,6 @@ public class Game {
                         Camel c = camels[coloursToNumbers.get(recoveryColours.get(i))];
                         c.setHasMoved(recoveryActivity.get(i));
                     }
-                    isGameFinished = false;
                     return;
                 }
 
@@ -504,6 +510,10 @@ public class Game {
 
     public int colourToNumber(Colours colour){
         return coloursToNumbers.get(colour);
+    }
+
+    public static int getBoardSize(){
+        return BOARD_SIZE;
     }
 
 }

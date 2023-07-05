@@ -19,7 +19,9 @@ public class Main {
         //pysio_test();
         //test6();
         //game1();
-        GUItest();
+        //GUItest();
+        ArrayList<Double> finalResults = new ArrayList<>(5);
+        System.out.println(finalResults);
     }
 
     private static void GUItest(){
