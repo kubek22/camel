@@ -362,13 +362,4 @@ public class App {
     public JPanel getMainPanel() {
         return mainPanel;
     }
-
-    /*public static void main(String[] args){
-        JFrame jFrame = new JFrame("App");
-        jFrame.setContentPane(new App().mainPanel);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.pack();
-        jFrame.setVisible(true);
-    }*/
-
 }

@@ -9,18 +9,10 @@ import java.awt.event.ActionListener;
 
 public class Starter {
     private JFrame mainFrame;
-    private JFrame additionalFrame;
+    private final JFrame additionalFrame;
 
     public Starter() {
-        // Create additional frame
         additionalFrame = prepareAdditionalFrame();
-
-        /*// Create the main JFrame
-        mainFrame = new JFrame("App");
-        mainFrame.setContentPane(new App().getMainPanel());
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.pack();
-        mainFrame.setSize(300, 200);*/
     }
 
     private JFrame prepareAdditionalFrame(){
@@ -58,7 +50,6 @@ public class Starter {
         mainFrame.setContentPane(new App(players).getMainPanel());
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
-        mainFrame.setSize(300, 200);
 
         return mainFrame;
     }
@@ -66,11 +57,6 @@ public class Starter {
     public void display() {
         additionalFrame.setLocationRelativeTo(null); // Center main frame
         additionalFrame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        Starter example = new Starter();
-        example.display();
     }
 }
 
