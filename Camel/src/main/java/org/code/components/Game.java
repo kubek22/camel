@@ -260,8 +260,10 @@ public class Game {
     }
 
     public boolean setSpecialField(int position, int move){
-        if (isGameFinished())
+        if (isGameFinished()){
+            System.out.println("The game is already finished");
             return false;
+        }
         //possible moves are 1and -1
         if (position < 1 | position > BOARD_SIZE){
             System.out.println("Position out of index");
@@ -315,6 +317,7 @@ public class Game {
             specialField.setField(SpecialField.DEF);
             specialField.setSet(false);
         }
+        firstUnusedSpecialField = 0;
     }
 
     public void releaseAllCamels(){

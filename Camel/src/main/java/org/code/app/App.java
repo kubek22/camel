@@ -190,6 +190,10 @@ public class App {
         acceptSpecialField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!allCamelsSet){
+                    outputTextArea.append("Set the camels first\n");
+                    return;
+                }
                 String input = inputSpecialFieldPosition.getText();
                 int position = Integer.valueOf(input);
                 String input2 = specialFieldMoveDecision.getSelectedItem().toString();
