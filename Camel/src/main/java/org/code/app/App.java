@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class App {
 
-    private static final int PLAYERS = 4;
-    private static final int CAMELS = 5;
-    private final Game game = new Game(PLAYERS);
+    private final int PLAYERS;
+    private final int CAMELS = 5;
+    private final Game game;
 
     private int setCamels = 0;
     private boolean allCamelsSet = false;
@@ -118,7 +118,9 @@ public class App {
     private JComboBox specialFieldMoveDecision;
 
 
-    public App() {
+    public App(int players) {
+        PLAYERS = players;
+        game = new Game(PLAYERS);
 
         //initializing specialFieldMoveDecision
         //specialFieldMoveDecision = new JComboBox();
@@ -357,12 +359,16 @@ public class App {
         return o.toString();
     }
 
-    public static void main(String[] args){
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    /*public static void main(String[] args){
         JFrame jFrame = new JFrame("App");
         jFrame.setContentPane(new App().mainPanel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
-    }
+    }*/
 
 }

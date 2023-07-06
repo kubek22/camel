@@ -22,6 +22,7 @@ public class Main {
         //GUItest();
         ArrayList<Double> finalResults = new ArrayList<>(5);
         System.out.println(finalResults);
+        System.out.println("asda" + 1);
     }
 
     private static void GUItest(){
